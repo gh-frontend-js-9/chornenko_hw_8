@@ -1,5 +1,5 @@
-let pet_info1 = {name:"Tosha Good Boy", food: (Math.floor(Math.random() * 20) + 50), happiness:(Math.floor(Math.random() * 20) + 50), clean:(Math.floor(Math.random() * 20) + 50)};
-let pet_info2 = {name:"Tosha Good Boy", food: (Math.floor(Math.random() * 50) + 50), happiness:(Math.floor(Math.random() * 50) + 50), clean:(Math.floor(Math.random() * 50) + 50)};
+let pet_info1 = {name:"Tosha Good Boy", food: (Math.floor(Math.random() * 20) + 51), happiness:(Math.floor(Math.random() * 20) + 51), clean:(Math.floor(Math.random() * 20) + 51)};
+let pet_info2 = {name:"Tosha Good Boy", food: (Math.floor(Math.random() * 50) + 51), happiness:(Math.floor(Math.random() * 50) + 51), clean:(Math.floor(Math.random() * 50) + 51)};
 
 let time;
 
@@ -15,9 +15,8 @@ function checkTime() {
         pet_info=pet_info2;
     }
     document.getElementById('name').innerHTML=pet_info['name'];
-    document.getElementById('food').innerHTML=pet_info['food'];
-    document.getElementById('happiness').innerHTML=pet_info['happiness'];
-    document.getElementById('clean').innerHTML=pet_info['clean'];
+    updatePetInfoInHtml();
+
 
     let count = 1,
         intervalTime = setInterval(function () {
@@ -37,13 +36,10 @@ function checkTime() {
             clearInterval(intervalChange);
             return alert('Game Over');
         }
-        document.getElementById('food').innerHTML=pet_info['food'];
-        document.getElementById('happiness').innerHTML=pet_info['happiness'];
-        document.getElementById('clean').innerHTML=pet_info['clean'];
+        updatePetInfoInHtml();
         document.getElementById('timeLife').innerHTML = String(count);
     }, time);
 }
-
 
 function clickedTreatButton() {
     pet_info.food = (pet_info.food * 1 + 30);
@@ -51,7 +47,7 @@ function clickedTreatButton() {
     if ( (pet_info.food > 101) || ( pet_info.happiness > 101) || (pet_info.clean >101)){
         return alert('Game Over');
     }
-    checkAndUpdatePetInfoInHtml();
+    updatePetInfoInHtml();
 }
 function clickedPlayButton() {
     pet_info.food = pet_info.food - 10;
@@ -59,7 +55,7 @@ function clickedPlayButton() {
     if ( (pet_info.food > 101) || ( pet_info.happiness > 101) || (pet_info.clean >101)){
         return alert('Game Over');
     }
-    checkAndUpdatePetInfoInHtml();
+    updatePetInfoInHtml();
 }
 
 function clickedHealthButton() {
@@ -68,22 +64,18 @@ function clickedHealthButton() {
     if ((pet_info.clean >101) || (pet_info.happiness <0) || (pet_info.food > 101) ){
         return alert('Game Over');
     }
-    checkAndUpdatePetInfoInHtml();
-}
-function checkAndUpdatePetInfoInHtml() {
-    checkWeightAndHappinessBeforeUpdating();
     updatePetInfoInHtml();
 }
 
-function checkWeightAndHappinessBeforeUpdating() {
-    if (pet_info.food < 0) {
-        pet_info.food = 0;
-    }
-}
-checkWeightAndHappinessBeforeUpdating();
 function updatePetInfoInHtml() {
     document.getElementById('food').innerHTML=pet_info['food'];
     document.getElementById('happiness').innerHTML=pet_info['happiness'];
     document.getElementById('clean').innerHTML=pet_info['clean'];
+    let food1=parseFloat(pet_info['food']);
+    document.getElementById("progressEnergy").value = food1;
+    let clean1=parseFloat(pet_info['clean']);
+    document.getElementById("progressClean").value = clean1;
+    let happy1=parseFloat(pet_info['happiness']);
+    document.getElementById("progressHappy").value = happy1;
 
 }
